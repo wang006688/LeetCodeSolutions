@@ -1,0 +1,40 @@
+public int LengthOfLongestSubstring(String s) {
+        
+        int rcount = 0, rrcount = 0;
+        int rmax =0, rrmax = 0;
+        char c[] = s.toCharArray();
+        StringBuffer maxSub = new StringBuffer();
+        
+        if (s.length() == 0) return 0;
+        
+        for (int i = 0; i < c.length; i++){
+            if(!maxSub.toString().contains(String.valueOf(c[i]))) {
+                maxSub.append(String.valueOf(c[i]));
+                rcount += 1;
+                rmax = rcount;
+            } else {
+                rcount = 1;
+                maxSub = new StringBuffer();
+                maxSub.append(String.valueOf(c[i]));
+            }
+            if (rmax < rcount) {
+                rmax = rcount;
+            }
+        }
+        for (int i = 0; i < c.length; i++){
+            if(!maxSub.toString().contains(String.valueOf(c[i]))) {
+                maxSub.append(String.valueOf(c[i]));
+                rrcount += 1;
+                rrmax = rrcount;
+            } else {
+                rrcount = 1;
+                maxSub = new StringBuffer();
+                maxSub.append(String.valueOf(c[i]));
+            }
+            if (rrmax < rrcount) {
+                rrmax = rrcount;
+            }
+        }
+        
+        return Math.max(rmax,rrmax);
+    }
