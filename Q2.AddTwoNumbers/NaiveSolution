@@ -1,0 +1,31 @@
+public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        
+        int count = 0;//This is the carry of the result
+        ListNode merged = new ListNode(0); //The new array to store the result
+        ListNode head = merged; //The pointer of the array 
+        
+        // if any of the two arrays is empty, just return the other array
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
+        
+        //We have to consider the case of two arrays with different length if 
+        //any the array is empty, simply copy the other array to the new array.
+        while(l1 !=null || l2 != null){
+            if(l1 != null) {
+                count += l1.val;
+                l1 = l1.next;
+            }
+            if(l2 != null) {
+                count += l2.val;
+                l2 = l2.next;
+            }
+            head.next = new ListNode(count % 10);
+            head = head.next;
+            count = count / 10;//The carry remained after go to the hight decimal
+        }
+        //When there is a carry in the highest decimal, make a new node for the array
+        if (count == 1) {
+            head.next = new ListNode(1);
+        }
+        return merged.next;
+    }
