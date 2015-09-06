@@ -1,0 +1,25 @@
+public class Solution {
+    public String convert(String s, int numRows) {
+        if (s == null)
+            return null;
+        int length = s.length();
+        StringBuffer sb = new StringBuffer();
+        if (numRows == 1 || s.length() == 0) 
+            return s;
+        for (int j = 0; j < numRows; j++) {
+            for (int i = j; i < length; i += 2 * numRows - 2) {
+                if (j > 0 && j < (numRows - 1)) {
+                    if (i + 2 * (numRows - j - 1) < length) {
+                        sb.append(s.charAt(i));
+                        sb.append(s.charAt(i + 2 * (numRows - j - 1)));
+                    } else{
+                        sb.append(s.charAt(i));
+                    }
+                } else {
+                    sb.append(s.charAt(i));
+                }
+            }
+        }
+        return sb.toString();
+    }
+}
