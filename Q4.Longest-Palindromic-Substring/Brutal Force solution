@@ -1,0 +1,26 @@
+public String longestPalindrome (String s) {
+        int maxLen = 0;
+        String longestSub = null;
+        int len = s.length();
+        
+        for (int i = 0; i < len; i++) {
+            for (int j = i + 1; j < len; j++) {
+                int length = j - i;
+                if (isPalindrome(s.substring(i, j + 1))){
+                    if (length > maxLen) {
+                        longestSub = s.substring(i, j + 1);
+                        maxLen = length;
+                    }
+                }
+            }
+        }
+        return longestSub;
+    }
+    
+    public static boolean isPalindrome (String s) {
+        for (int i = 0; i < s.length() -1; i++) {
+            if (s.charAt(i) != s.charAt(s.length() - 1 - i))
+                return false;
+        }
+        return true;
+    }
