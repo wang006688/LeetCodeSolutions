@@ -1,7 +1,7 @@
 public class Solution {
     public boolean isPalindrome(int x) {
         if(x < 0)
-            return false;
+            return false;  //The reason I did not pass the first time tested
         if(x / 10 == 0)
             return true;
         if(x / 100 == 0) {
