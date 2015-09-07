@@ -1,0 +1,22 @@
+public class Solution {
+    public boolean isPalindrome(int x) {
+        if(x < 0)
+            return false;
+        if(x / 10 == 0)
+            return true;
+        if(x / 100 == 0) {
+            return x / 10 == x % 10 ? true : false;
+        }
+        for(int i = 1000000000; i > 0; i = i/10) {
+            if (x / i != 0) { //Find the highest digit of the number
+                for (int j = i; j > 0; j = j / 100) {  //Be careful about the result of x after divided by 10
+                    if(x / j % 10 != x % 10)
+                        return false;
+                    x /= 10;
+                }
+                break;
+            } 
+        }
+        return true;
+    }
+}
