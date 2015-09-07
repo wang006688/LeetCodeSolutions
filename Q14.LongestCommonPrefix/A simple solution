@@ -3,7 +3,7 @@ public class Solution {
         if (strs.length == 0) 
             return "";
         String lcp = strs[0];
-        for (int i = 0; i< strs.length; i++) {
+        for (int i = 1; i< strs.length; i++) {
             StringBuilder sb = new StringBuilder();
             for (int j = 0; j < Math.min(lcp.length(), strs[i].length()); j++) {
                 if (lcp.charAt(j) == strs[i].charAt(j)) {
