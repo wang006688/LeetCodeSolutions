@@ -1,0 +1,44 @@
+public class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        StringBuilder sb = new StringBuilder();
+        StringBuilder sb1 = new StringBuilder();
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] != '.') {
+                if (!sb.toString().contains(String.valueOf(board[i][j]))){
+                    sb.append(String.valueOf(board[i][j]));
+                } else {
+                    return false;
+                }
+                if(board[j][i] != '.') {
+                    if (!sb1.toString().contains(String.valueOf(board[i][j]))){
+                    sb1.append(String.valueOf(board[i][j]));
+                } else {
+                    return false;
+                }
+                }
+            }
+            }
+            sb = new StringBuilder();
+            sb1 = new StringBuilder();
+        }
+        StringBuilder sb2 = new StringBuilder();
+        for (int m = 0; m < 9; m = m + 3) {
+            for(int n = 0; n < 9; n = n +3) {
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        if (board[i + m][j + n] != '.') {
+                        if (!sb2.toString().contains(String.valueOf(board[i + m][j + n]))){
+                        sb2.append(String.valueOf(board[i + m][j + n]));
+                        } else {
+                            return false;
+                            }
+                        }
+                    }
+                }
+                sb2 = new StringBuilder();
+            }
+        }
+        return true;
+    }
+}
