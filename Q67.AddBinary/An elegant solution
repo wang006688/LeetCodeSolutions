@@ -1,0 +1,16 @@
+public class Solution {
+    public String addBinary(String a, String b) {
+        int lenA = a.length();
+        int lenB = b.length();
+        int carry = 0, i = 0;
+        String result = "";
+        while(i < lenA || i < lenB || carry!= 0) {
+            int x = (i < lenA) ? Character.getNumericValue(a.charAt(lenA - i - 1)):0;
+            int y = (i < lenB) ? Character.getNumericValue(b.charAt(lenB - i - 1)):0;
+            result = (x + y + carry) % 2 + result;
+            carry = (x + y + carry) / 2;
+            i++;
+        }
+        return result;
+    }
+}
