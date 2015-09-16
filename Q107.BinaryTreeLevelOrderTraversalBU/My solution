@@ -1,0 +1,25 @@
+public class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<TreeNode> level = new ArrayList<TreeNode>();
+        List<List<Integer>> total = new ArrayList<List<Integer>>();
+        if (root == null) return total;
+        level.add(root);
+        
+        while (!level.isEmpty()) {
+            ArrayList<Integer> values = new ArrayList<Integer>();
+            ArrayList<TreeNode> nextLevel = new ArrayList<TreeNode>();
+            for (int i = 0; i < level.size(); i++) {
+                values.add(level.get(i).val);
+                if (level.get(i).left != null) {
+                    nextLevel.add(level.get(i).left);
+                }
+                if (level.get(i).right != null) {
+                    nextLevel.add(level.get(i).right);
+                }
+            }
+            total.add(0, values);
+            level = nextLevel;
+        }
+        return total;
+    }
+}
