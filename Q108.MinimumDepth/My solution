@@ -1,0 +1,11 @@
+public class Solution {
+    public int minDepth(TreeNode root) {
+        if (root == null) return 0;
+        int left = minDepth(root.left);
+        int right = minDepth(root.right);
+        int m = Math.min(left, right);
+        //It is very important to consider that if one of the children is null, then it should return the 
+        //depth of the other child.
+        return 1 + (m > 0 ? m: Math.max(left, right));
+    }
+}
