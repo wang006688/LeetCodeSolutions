@@ -1,0 +1,22 @@
+public class Solution {
+    public void rotate(int[] nums, int k) {
+       int end = nums.length;
+        k=k%end;// to check for outofbounds when k >= nums.length
+        rotate(nums,0,end-k-1);//reverse one half of the array
+        rotate(nums,end-k,end-1);//reverse other half of the array
+        rotate(nums,0,end-1);//reverse whole array  
+    }
+    public void swap(int[] nums,int a,int b){
+        int temp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = temp;
+    }
+
+    public void rotate(int[] nums,int start,int end){
+        for(int i = start;i<=(start+end)/2;i++){
+            swap(nums,i,(start+end)-i);
+        }
+    }
+
+
+}
