@@ -1,0 +1,15 @@
+public int majorityElement(int[] a) {
+  int n = a.length, m = a[0], c = 1;
+
+  for (int i = 1; i < n; i++) {
+    if (a[i] == m) {
+      c++;
+    } else if (c > 0) {
+      c--;
+    } else {
+      m = a[i]; c = 1;
+    }
+  }
+
+  return m;
+}
