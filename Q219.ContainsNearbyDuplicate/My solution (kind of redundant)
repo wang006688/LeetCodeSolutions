@@ -1,0 +1,21 @@
+public class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        if (nums == null || nums.length == 0) return false;
+        HashSet<Integer> set = new HashSet<Integer>();
+        if (k >= nums.length) {
+            for(int i : nums)
+                if(!set.add(i))
+                    return true; 
+            return false;
+        }
+        for (int i = 0; i < nums.length - k; i++) {
+            for (int j = 0; j <= k; j++) {
+                if(!set.add(nums[i + j])) {
+                    return true;
+                } 
+            }
+            set = new HashSet<Integer>();
+        }
+        return false;
+    }
+}
