@@ -1,0 +1,15 @@
+public ListNode reverseList(ListNode head) {
+    if(head==null) return head;
+
+    ListNode newhead = new ListNode(0);
+    newhead.next = head;
+
+    while(head.next!=null) {
+        ListNode tmp = head.next;
+        head.next = head.next.next;
+
+        tmp.next = newhead.next;
+        newhead.next = tmp;
+    }
+    return newhead.next;
+}
