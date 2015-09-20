@@ -1,0 +1,11 @@
+public class Solution {
+    public ListNode reverseList(ListNode head) {
+        return helper(null, head);
+    }
+    public ListNode helper(ListNode reverse, ListNode remaining) {
+        if (remaining == null) return reverse;
+        ListNode temp = remaining.next;
+        remaining.next = reverse;
+        return helper(remaining, temp);
+    }
+}
