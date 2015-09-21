@@ -1,0 +1,34 @@
+public class Solution {
+    public boolean isPalindrome(ListNode head) {
+        if (head==null) return true;
+
+        ListNode fast = head.next;
+        ListNode mid = head;
+        //Find the mid point of the linked list  and reverse the second half of the linked list
+        //Then compare the first part and the second part to determine whehter these are the same
+        while(fast !=null && fast.next != null) {
+            fast = fast.next.next;
+            mid = mid.next;
+        }
+        ListNode tail = reverse(mid);
+
+        while (tail !=null && head != null) {
+            if (tail.val != head.val) {
+                return false;
+            }
+            tail = tail.next;
+            head = head.next;
+        }
+        return true;
+    }
+    ListNode reverse(ListNode head) {
+        ListNode prev = null;
+        while(head!=null) {
+            ListNode tmp = head.next;
+            head.next = prev;
+            prev = head;
+            head = tmp;
+        }
+        return prev;
+    }
+}
