@@ -1,0 +1,17 @@
+public class Solution {
+    ListNode h;
+    public boolean isPalindrome(ListNode head) {
+        if (head == null) return true;
+
+        if (h == null) h = head;
+
+        boolean tmp = true;        
+        if (head.next != null) tmp &= isPalindrome(head.next);
+
+        tmp &= (head.val == h.val);
+        h = h.next;
+        return tmp;
+    }
+}
+//Maybe, the main idea here is to find find the last element in the linked list
+//Use the flag to do the mask operation, which I think is pretty smart
