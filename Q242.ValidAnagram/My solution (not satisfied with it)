@@ -1,0 +1,18 @@
+public class Solution {
+    public boolean isAnagram(String s, String t) {
+        if (s == null || t == null)  return s == t;
+        if (s.length() != t.length()) return false;
+        char[] c1 = s.toCharArray();
+        char[] c2 = t.toCharArray();
+        Arrays.sort(c1);
+        Arrays.sort(c2);
+        String newS = new String(c1);
+        String newT = new String(c2);
+        for (int i = 0; i < s.length(); i++) {
+            if (newS.charAt(i) != newT.charAt(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
