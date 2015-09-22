@@ -1,0 +1,18 @@
+public class Solution extends VersionControl {
+    public int firstBadVersion(int n) {
+        if (n == 0) return 0;
+        return helper(1,n);
+    }
+    public int helper(int start, int end) {
+        if(start>=end) {
+        return start;
+        }
+        int middle = start+(end-start)/2;
+
+        if(isBadVersion(middle)) {
+            return helper(start,middle);
+        } else {
+            return helper(middle+1,end);
+        }
+    }
+}
