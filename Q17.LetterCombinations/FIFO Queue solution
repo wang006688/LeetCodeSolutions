@@ -1,0 +1,19 @@
+public class Solution {
+    public List<String> letterCombinations(String digits) {
+        LinkedList<String> res = new LinkedList<String>();
+        String[] map = {"","","abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        int len = digits.length();
+        if (len == 0) return res;
+        res.add("");
+        for (int i = 0; i < digits.length(); i++) {
+            int num = digits.charAt(i) - '0';
+            while(i == res.peek().length()) {
+                String s = res.remove();
+                for (char c : map[num].toCharArray()) {
+                    res.add(s + c);
+                }
+            }
+        }
+        return res;  
+    }
+}
