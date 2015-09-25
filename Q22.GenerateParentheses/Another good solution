@@ -1,0 +1,36 @@
+public List<String> generateParenthesis(int n) {
+    ArrayList<String> list = new ArrayList<String>();
+    Stack<String> stack = new Stack<String>();
+    Stack<Integer> validationStack = new Stack<Integer>();
+    stack.push("(");
+    validationStack.push(0);
+    while(stack.size() != 0)
+    {
+        String s = stack.pop();
+        int v = validationStack.pop();
+        if(s.length() == n * 2)
+        {
+            list.add(s);
+            continue;
+        }
+        if(s.length() - v < n)
+        {
+            stack.push(s + "(");
+            validationStack.push(v);
+        }
+        if(2 * v < s.length())
+        {
+            stack.push(s + ")");
+            validationStack.push(v+1);
+        }
+    }
+    return list;
+}
+
+
+Start from "(", keep appending "(" and / or ")" with a string stack, till we reach the length 2 * n then 
+output all combinations. The problem here is... we may generate invalid strings if we do this freely, 
+to avoid that, we should keep an additional stack of integer to store the value of v which is the 
+number of closed parenthesis in the current string -- if v * 2 >= current string length, means we would 
+be adding too many ')'; if current string length - v >= n, means we would be adding too many '('. 
+otherwise we could append both and push them into the string stack.
