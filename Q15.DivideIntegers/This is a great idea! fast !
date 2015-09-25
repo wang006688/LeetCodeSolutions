@@ -1,0 +1,22 @@
+public class Solution {
+    public int divide(int dividend, int divisor) {
+        if (divisor == 0) return Integer.MAX_VALUE;
+        long res = divLong(dividend, divisor);
+        return res > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int)res;
+    }
+    public long divLong(long dividend, long divisor) {
+        boolean negative = dividend < 0 != divisor < 0;
+        if (dividend < 0) dividend = -dividend;
+        if (divisor < 0) divisor = -divisor;
+        if (dividend < divisor) return 0;
+        long sum = divisor;
+        long divide = 1;
+        while ((sum + sum) <= dividend) {
+            sum += sum;
+            divide += divide;
+        }
+        
+        return negative ? -(divide + divLong(dividend - sum, divisor)): 
+                (divide + divLong(dividend - sum,divisor));
+    }
+}
