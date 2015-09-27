@@ -1,0 +1,30 @@
+public List<List<Integer>> combinationSum(int[] candidates, int target) {
+    Arrays.sort(candidates);
+    Stack<ArrayList<Integer>> stack = new Stack<ArrayList<Integer>>();
+    Stack<Integer> sum = new Stack<Integer>();
+    Stack<Integer> start = new Stack<Integer>();
+    stack.push(new ArrayList<Integer>());
+    sum.push(0);
+    start.push(0);
+    List<List<Integer>> result = new ArrayList<List<Integer>>();
+    while (!stack.isEmpty()) {
+        List<Integer> res = stack.pop();
+        int total = sum.pop();
+        int begin = start.pop();
+        if (total == target)
+            result.add(res);
+        else {
+            for (int i = begin; i < candidates.length; i++) {
+                int t = total + candidates[i];
+                if (t > target)
+                    break;
+                ArrayList<Integer> r = new ArrayList<Integer>(res);
+                r.add(candidates[i]);
+                stack.push(r);
+                sum.push(t);
+                start.push(i);
+            }
+        }
+    }
+    return result;
+}
