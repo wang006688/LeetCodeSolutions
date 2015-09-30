@@ -1,0 +1,45 @@
+public class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> res = new ArrayList<>();
+        if (strs == null) return res;
+        List<String> sub = new ArrayList<>();
+        Arrays.sort(strs);
+        sub.add(strs[0]);
+        res.add(sub);
+        for (int i = 1; i < strs.length; i++) {
+            List<List<String>> temp = new ArrayList<>();
+            int flag = -1;
+            for (int j = 0; j < res.size(); j++) {
+                if (validAnagram(res.get(j).get(0), strs[i]) ) {
+                    flag = j;
+                }
+                temp.add(res.get(j));
+            }
+            List<String> newSub = new ArrayList<>();
+            if (flag == -1) {
+                newSub.add(strs[i]);
+                temp.add(newSub);
+            } else {
+                temp.get(flag).add(strs[i]);
+            }
+            res = temp;
+        }
+        return res; 
+    }
+    public boolean validAnagram(String s, String t) {
+        if(s.length()!=t.length()){
+            return false;
+        }
+        int[] count = new int[26];
+        for(int i=0;i<s.length();i++){
+            count[s.charAt(i)-'a']++;
+            count[t.charAt(i)-'a']--;
+        }
+        for(int i:count){
+            if(i!=0){
+                return false;
+            }
+        }
+        return true;
+    }
+}
