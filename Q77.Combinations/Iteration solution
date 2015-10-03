@@ -1,0 +1,17 @@
+public List<List<Integer>> combine(int n, int k) {
+    LinkedList<List<Integer>> result = new LinkedList<List<Integer>>();
+    result.add(new LinkedList<Integer>());
+    for (int j = k - 1; j >= 0; j--) {
+        int size = result.size();
+        for (int i = 0; i < size; i++) {
+            LinkedList<Integer> res = (LinkedList<Integer>) result.pollFirst();
+            int start = (res.isEmpty()) ? 0 : res.getLast();
+            for (int m = start + 1; m + j <= n; m++) {
+                List<Integer> r = new LinkedList<Integer>(res);
+                r.add(m);
+                result.add(r);
+            }
+        }
+    }
+    return result;
+}
