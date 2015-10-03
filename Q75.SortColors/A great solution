@@ -17,3 +17,8 @@ public void sortColors(int[] A) {
         }
     }
 }}
+
+
+The concept is simple. Maintain two pointer, pointer "one" indicates the begging of all ones and 
+pointer "two" indicates the begging of all twos. When we meet 1, we move 1 to the end of 1 sequence 
+which is begging of two sequence then move begging of 2 forward 1. Doing the same to the 2.
