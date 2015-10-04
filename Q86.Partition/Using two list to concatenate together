@@ -1,0 +1,20 @@
+public class Solution {
+    public ListNode partition(ListNode head, int x) {
+        ListNode pointSmall = new ListNode(0);
+        ListNode pointBig = new ListNode(0);
+        ListNode curSmall = pointSmall, curBig = pointBig;
+        while(head != null) {
+            if (head.val < x) {
+                curSmall.next = head;
+                curSmall = head;
+            } else {
+                curBig.next = head;
+                curBig = head;
+            }
+            head = head.next;
+        }
+        curBig.next = null;
+        curSmall.next = pointBig.next;
+        return pointSmall.next;
+    }
+}
