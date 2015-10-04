@@ -1,0 +1,15 @@
+public class Solution {
+    public int numDecodings(String s) {
+        int len = s.length();
+        if (len == 0) return 0;
+        int[] sum = new int[len + 1];
+        sum[len] = 1;
+        sum[len - 1] = s.charAt(len - 1) == '0' ? 0:1;
+        for (int i = len - 2; i >= 0; i--) {
+            if (s.charAt(i) != '0') {
+                sum[i] = (Integer.parseInt(s.substring(i, i+ 2)) <= 26) ? sum[i + 1] + sum[i + 2] : sum[i + 1];
+            }
+        }
+        return sum[0];
+    }
+}
