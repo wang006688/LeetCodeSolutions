@@ -1,0 +1,31 @@
+public class Solution {
+    public List<String> restoreIpAddresses(String s) {
+        List<String> res = new ArrayList<>();
+        helper(res, new ArrayList<String>(), 0, s);
+        return res;
+    }
+    public void helper(List<String> res, ArrayList<String> each, int level, String s) {
+        if (level == 3) {
+            String s1 = each.get(0);
+            String s2 = each.get(1);
+            String s3 = each.get(2);
+            String s4 = s;
+            if (isValid(s1) && isValid(s2)&&isValid(s3)&&isValid(s4)) {
+                res.add(s1 + "." + s2 + "." + s3 + "." + s4);
+            }
+            return;
+        }
+        for (int i = 1; i < 4 && i <= s.length(); i++) {
+            String sub = s.substring(0,i);
+            each.add(sub);
+            helper(res, each, level + 1, s.substring(i));
+            each.remove(each.size() - 1);
+        }
+    }
+    public boolean isValid(String s) {
+        if(s.length()>3||s.length()<1) return false;
+        if(s.length()>1&&s.charAt(0)=='0') return false;
+        if(Integer.parseInt(s)>255) return false;
+        return true;
+    }
+}
