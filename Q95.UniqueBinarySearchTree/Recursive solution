@@ -1,0 +1,26 @@
+public class Solution {
+    public List<TreeNode> generateTrees(int n) {
+        return generate(1,n);
+    }
+    public List<TreeNode> generate(int start, int end) {
+        List<TreeNode> tree = new ArrayList<>();
+        if (start > end) {
+            tree.add(null);
+            return tree;
+        }
+        for (int rootV = start; rootV <= end; rootV++) {
+            List<TreeNode> leftSub = generate(start, rootV - 1);
+            List<TreeNode> rightSub = generate(rootV + 1, end);
+            
+            for (TreeNode left : leftSub) {
+                for (TreeNode right : rightSub) {
+                    TreeNode root = new TreeNode(rootV);
+                    root.left = left;
+                    root.right = right;
+                    tree.add(root);
+                }
+            }
+        }
+        return tree;
+    }
+}
