@@ -1,0 +1,19 @@
+public class Solution {
+    public boolean isValidBST(TreeNode root) {
+        if(root == null)    return true;
+        boolean left = (root.left == null)? true:(getMax(root.left)<root.val)?isValidBST(root.left):false;
+        boolean right = (root.right == null)? true:(getMin(root.right)>root.val)?isValidBST(root.right):false;
+        return left && right;
+    }
+
+    private int getMin(TreeNode node){
+        while(node.left != null)
+            node = node.left;
+        return node.val;
+    }
+    private int getMax(TreeNode node){
+        while(node.right != null)
+            node = node.right;
+        return node.val;
+    }
+}
