@@ -1,0 +1,32 @@
+public class Solution {
+    public int numTrees(int n) {
+        int sum = 0;
+        for (int i = 0; i < 3; i++) {
+            if (n == i) {
+                return i;
+            }
+        }
+        if (n % 2 == 0) {
+            for (int i = 1; i <= n / 2; i++) {
+                int mid = i;
+                if (mid == 1) {
+                    sum += numTrees(n - 1) * 2;
+                } else if (mid > 1 && mid <= n / 2) {
+                    sum += numTrees(mid - 1) * numTrees(n - mid) * 2;
+                }
+            }
+        }
+        if (n % 2 != 0) {
+            for (int i = 1; i <= n / 2 + 1; i++) {
+                int mid = i;
+                if (mid == 1) {
+                    sum += numTrees(n - 1) * 2;
+                } else if (mid > 1 && mid <= n / 2) {
+                    sum += numTrees(mid - 1) * numTrees(n - mid) * 2;
+                } else {
+                    sum += numTrees(mid - 1) * numTrees(n - mid);
+                }
+            }
+        }
+        return sum;
+    }
