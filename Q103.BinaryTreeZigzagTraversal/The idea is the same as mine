@@ -25,3 +25,11 @@ public class Solution {
         return levels;
     }
 }
+
+
+
+For this problem I wanted to use as much of the standard "Level Order Traversal" Algorithm as possible. 
+I went with the BFS level order algorithm with a slight modification. If we take a look at the zigzag property 
+its nothing more than alternating which end of the temp list is being added to (either the front or the back). 
+This is a simple spec to code for. I kept a variable level and before adding to a given levels list i check 
+rather the level variable is odd or even. If Odd I add to the front of the list if even I add to the back
