@@ -1,0 +1,19 @@
+public TreeNode sortedArrayToBST(int[] nums) {
+
+        int len = nums.length;
+        if (len < 1)
+            return null;
+        if (len == 1) {
+            TreeNode head = new TreeNode(nums[0]);
+            return head;
+        }
+
+        TreeNode left = sortedArrayToBST(Arrays.copyOfRange(nums, 0, len / 2));
+        TreeNode right = sortedArrayToBST(Arrays.copyOfRange(nums, len / 2 + 1,
+                len));
+        TreeNode head = new TreeNode(nums[len / 2]);
+        head.left = left;
+        head.right = right;
+
+        return head;
+    }
