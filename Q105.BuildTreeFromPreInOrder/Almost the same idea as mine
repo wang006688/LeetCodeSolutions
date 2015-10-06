@@ -1,0 +1,20 @@
+public TreeNode buildTree(int[] preorder, int[] inorder) {
+    return buildTreeIntern(preorder, inorder, 0, 0, preorder.length);
+  }
+
+  private TreeNode buildTreeIntern(int[] preorder, int[] inorder, int preIndex, int inIndex, int size) {
+    if(size <= 0) {
+      return null;
+    }
+
+    TreeNode rv = new TreeNode(preorder[preIndex]);
+
+    for(int i = 0; i < size; i++) {
+      if(preorder[preIndex] == inorder[inIndex + i]) {
+        rv.left = buildTreeIntern(preorder, inorder, preIndex + 1, inIndex, i);
+        rv.right = buildTreeIntern(preorder, inorder, preIndex + i + 1, inIndex + i + 1, size - i - 1);
+        break;
+      }
+    }
+    return rv;
+  }
