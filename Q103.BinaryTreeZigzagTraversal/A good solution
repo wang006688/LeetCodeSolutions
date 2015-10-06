@@ -1,0 +1,21 @@
+public class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        helper(res, root, 0);
+        return res;
+    }
+    public void helper(List<List<Integer>> res, TreeNode root, int level) {
+        if (root == null) return;
+        if (level >= res.size()) {
+            res.add(new LinkedList<Integer>());
+        }
+        LinkedList<Integer> ls = (LinkedList<Integer>)res.get(level);
+        if (level % 2 == 0) {
+            ls.add(root.val);
+        } else {
+            ls.addFirst(root.val);
+        }
+        helper(res, root.left, level + 1);
+        helper(res, root.right, level + 1);
+    }
+}
