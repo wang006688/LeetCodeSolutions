@@ -1,0 +1,19 @@
+public void connect(TreeLinkNode root) {
+    TreeLinkNode tmp = root;
+    if (root == null) {
+        return;
+    }
+    if (root.left == null && root.right == null) {
+        return;
+    }
+    while(root.left != null && root.right != null ){
+        tmp = root; 
+        root.left.next = root.right; 
+        while(root.next != null) {
+            root.right.next = root.next.left;
+            root.next.left.next = root.next.right; 
+            root = root.next; 
+        }
+            root = tmp.left; 
+        }
+}
