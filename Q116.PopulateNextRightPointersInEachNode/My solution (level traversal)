@@ -1,0 +1,27 @@
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        if (root == null) return;
+        Queue<TreeLinkNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int parent = 1, child = 0;
+        while(!queue.isEmpty()) {
+            parent--;
+            TreeLinkNode temp = queue.poll();
+            if (temp.left != null) {
+                queue.offer(temp.left);
+                child++;
+            }
+            if (temp.right != null) {
+                queue.offer(temp.right);
+                child++;
+            }
+            if (parent == 0) {
+                temp.next = null;
+                parent = child;
+                child = 0;
+            } else {
+                temp.next = queue.peek();
+            }
+        }
+    }
+}
