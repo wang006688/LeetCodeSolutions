@@ -1,0 +1,11 @@
+public class Solution {
+    public int maxProfit(int[] prices) {
+        int max = 0;
+        int locmax = 0;
+        for (int i = 0; i < prices.length - 1; i++) {
+            locmax = Math.max(0, locmax += prices[i + 1] - prices[i]);
+            max = Math.max(locmax, max);
+        }
+        return max;
+    }
+}
