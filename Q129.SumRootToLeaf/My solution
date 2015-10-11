@@ -1,0 +1,22 @@
+public class Solution {
+    public int sumNumbers(TreeNode root) {
+        int sum = 0;
+        if (root == null) return 0;
+        List<Integer> res = new ArrayList<>();
+        helper(res, root, 0);
+        for (int i = 0; i < res.size(); i++) {
+            sum += res.get(i);
+        }
+        return sum;
+    }
+    public void helper (List<Integer> l, TreeNode t, int s) {
+        if (t == null) return;
+        s = s * 10 + t.val;
+        if (t.left != null || t.right != null) {
+            helper(l, t.left, s);
+            helper(l, t.right, s);
+        } else {
+            l.add(s);
+        }
+    }
+}
