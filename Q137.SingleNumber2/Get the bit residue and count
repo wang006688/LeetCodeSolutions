@@ -1,0 +1,22 @@
+public class Solution {
+    public int singleNumber(int[] nums) {
+        int[] count = new int[32];
+        int res = 0;
+        boolean hasBit;
+        for (int i = 0; i < nums.length; i++) {
+            int temp = nums[i];
+            for (int j = 0; j < 32; j++) {
+                hasBit = (temp & (1 << j)) != 0;
+                if (hasBit) {
+                    count[j] = (count[j] + 1) % 3;
+                }
+            }
+        }
+        for (int i = 0; i < 32; i++) {
+            if (count[i] > 0) {
+                res |= (1 << i);
+            }
+        }
+        return res;
+    }
+}
