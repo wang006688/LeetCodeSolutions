@@ -1,0 +1,19 @@
+Many may wonder what 'a', 'b', 'c' means and how can we manipulate a number like one single bit, 
+as you see in the code, a, b and c are all full 32-bit numbers, not bits. I cannot blame readers to 
+have questions like that because the author did not make it very clear.
+
+In Single Number, it is easy to think of XOR solution because XOR manipulation has such properties:
+
+Commutative: A^B == B^A, this means XOR applies to unsorted arrays just like sorted. (1^2^1^2==1^1^2^2)
+Circular: A^B^...^B == A where the count of B's is a multiple of 2.
+So, if we apply XOR to a preceding zero and then an array of numbers, every number that appears twice will 
+have no effect on the final result. Suppose there is a number H which appears just once, 
+the final XOR result will be 0^H^...H where H appears as many as in input array.
+
+When it comes to Single Number II (every one occurs K=3 times except one occurs M times, 
+where M is not a multiple of K), we need a substitute of XOR (notated as @) which satisfies:
+
+Commutative: A@B == B@A.
+Circular: A@B@...@B == A where the count of B's is a multiple of K.
+We need to MAKE the @ operation. This general solution suggests that we maintain a state for each bit,
+where the state corresponds to how many '1's have appeared on that bit, so we need a int[32] array.
