@@ -1,0 +1,29 @@
+Your algorithm is pretty good! It could be proved.
+
+Suppose there are N gas stations, with gas[i] and cost[i];
+
+Let x[i] = gas[i] - cost[i].
+
+Let k be the index, where its accumulative sum (x[1] + ... + x[k]) reaches the minimum. We let (x[1] + ... + x[k]) be A;
+
+If the problem has a solution, then the remaining accumulative sum B, which is [x[k+1] + ... + x[N]) 
+should be subjective to A + B > 0;
+
+The index of the optimal starting station is the (k + 1); We consider two types of indices, before and after the k, 
+to prove the solution satisfies all requirement. Finally we show the solution actually is not unique.
+
+Regarding any index m, where m < k, let its accumulative sum (x[1] + ... + x[m]) be C. 
+From definition of the index k in (3), we known C > A. Combing (4), we know B + C > B + A > 0, 
+which means any gas station prior to k suffices to provide gas for a car.
+
+Regarding any index n, where k < n <= N, let its accumulative sum(x[k+1] + ... + x[m]) be D. 
+Easy to know D must be none-negative, otherwise by definition of k in (3), the best k should be n, as A + D < A. 
+This contradicts with our assumption of k in (3). So any gas station after k suffices to provide gas for a car.
+
+Proof is done.
+
+We show a case where the optimal solution is not unique.
+
+Let x = -4, 5, -6, 1, 5, where x is defined in (2). Its optimal solution is starting from 1 or 5. 
+So the testing data of this problem might be combing any sequential x[i], which have the same sign. 
+In this case, we just combine 1 and 5 to obtain unique solution.
