@@ -1,0 +1,77 @@
+The key to solve this problem is the count of 1s of each bit of all numbers.
+
+Take one bit number for example: nums = [1, 1, 1, 0, 0, 0, ..., x] . All numbers are 0 or 1.
+
+We know that every number appears three times except for just one number. So, if the count of 1s in nums is 0, 3, 6, ..., 3 * n, then the single number is 0. And if the count of 1s in nums is 1, 4, 7, ..., 3*n+1, then the single number is 1.
+
+So, for an array " nums " that contains only 0 or 1, the code to find the single number are:
+
+count = 0
+for num in nums:
+    count = (count + num) % 3
+return count
+To make "count" less than 3, mod "count" with 3 in every loop.
+
+Below is the procedure for finding the single number in [1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0]:
+
+Table 1:
+++=======++===+===+===+===+===+===+===+===+===+===+===+===+===+====++
+|| num   ||   | 1 | 0 | 1 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0  ||
+++-------++---+---+---+---+---+---+---+---+---+---+---+---+---+----++
+|| count || 0 | 1 | 1 | 2 | 0 | 0 | 1 | 1 | 2 | 2 | 0 | 0 | 1 | 1* ||
+++=======++===+===+===+===+===+===+===+===+===+===+===+===+===+====++
+So the single number is 1.
+
+We can write the calculate table for expression "count' = (count + num) % 3":
+
+Table 2:
+++=======+=====+========++
+|| count | num | count' ||
+++-------+-----+--------++
+||   0   |  0  |   0    ||
+++-------+-----+--------++
+||   1   |  0  |   1    ||
+++-------+-----+--------++
+||   2   |  0  |   2    ||
+++-------+-----+--------++
+||   0   |  1  |   1    ||
+++-------+-----+--------++
+||   1   |  1  |   2    ||
+++-------+-----+--------++
+||   2   |  1  |   0    ||
+++-------+-----+--------++
+To extend this algorithm to 32bits number. We need to rewrite these code to bit operation expressions.
+
+And the key is rewriting the expression " count' = (count + num) % 3 " to bit operation expressions.
+
+Write binary numbers of " count " and " count' " in "Table 2". And split their bits into two column:
+
+Table 3:
+++=======+============+=====+============+========++
+||       |    count   | num |   count'   |        ||
+|| count |    (bin)   |     |   (bin)    | count' ||
+|| (dec) ++=====+=====+=====+=====+=====++ (dec)  ||
+||       || b1  | b0  | num | b1' | b0' ||        ||
+++-------++-----+-----+-----+-----+-----++--------++
+||   0   ||  0  |  0  |  0  |  0  |  0  ||   0    ||
+++-------++-----+-----+-----+-----+-----++--------++
+||   1   ||  0  |  1  |  0  |  0  |  1  ||   1    ||
+++-------++-----+-----+-----+-----+-----++--------++
+||   2   ||  1  |  0  |  0  |  1  |  0  ||   2    ||
+++-------++-----+-----+-----+-----+-----++--------++
+||   0   ||  0  |  0  |  1  |  0  |  1  ||   1    ||
+++-------++-----+-----+-----+-----+-----++--------++
+||   1   ||  0  |  1  |  1  |  1  |  0  ||   2    ||
+++-------++-----+-----+-----+-----+-----++--------++
+||   2   ||  1  |  0  |  1  |  0  |  0  ||   0    ||
+++=======++===========+=====+===========++========++
+Here comes the hardest part of this solution.
+
+"Table 3" is a truth table, we need to use it to find the formulas to calculate " b0' " and " b1' ":
+
+b0' = f(b1, b0, num)
+b1' = g(b1, b0, num)
+With observations, guesses, experiments and even some luck. Finally I got two simple and elegant formulas:
+
+b0' = (b0 ^ num) & (~b1)
+b1' = (b1 ^ num) & (~b0')
