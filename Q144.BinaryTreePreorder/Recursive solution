@@ -1,0 +1,14 @@
+public class Solution {
+    List<Integer> traversal = new ArrayList<>();
+    public List<Integer> preorderTraversal(TreeNode root) {
+        if(root!=null){helper(root);}
+        return traversal;
+    }
+
+    void helper (TreeNode root){
+        traversal.add(root.val);
+        if(root.left!=null){helper(root.left);}
+        if(root.right!=null){helper(root.right);}
+
+    }
+}
