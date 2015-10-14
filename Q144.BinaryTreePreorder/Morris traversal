@@ -1,0 +1,21 @@
+public List<Integer> preorderTraversal(TreeNode node) {
+    List<Integer> list = new ArrayList();
+
+    while(node != null) {
+        if(node.left == null) {
+            list.add(node.val);
+            node = node.right;
+        }
+        else {
+            TreeNode nextNode = node.left;
+
+            TreeNode p = nextNode;
+            while(p.right != null) p = p.right;
+
+            list.add(node.val);
+            p.right = node.right;
+            node = nextNode;
+        }
+    }
+    return list;
+}
