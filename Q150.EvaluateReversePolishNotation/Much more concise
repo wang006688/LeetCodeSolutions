@@ -1,0 +1,30 @@
+public int evalRPN(String[] tokens) {
+
+    Deque<Integer> stack = new LinkedList<Integer>();
+    int temp;
+    for (int i = 0; i < tokens.length; i++) {
+        switch (tokens[i]) {
+        case "+":
+            temp = stack.pop();
+            stack.push(temp + stack.pop());
+            break;
+        case "-":
+            temp = stack.pop();
+            stack.push(stack.pop() - temp);
+            break;
+        case "*":
+            temp = stack.pop();
+            stack.push(stack.pop() * temp);
+            break;
+        case "/":
+            temp = stack.pop();
+            stack.push(stack.pop() / temp);
+            break;
+        default:
+            stack.push(Integer.parseInt(tokens[i]));
+        }
+    }
+
+    return stack.peek();
+
+}
