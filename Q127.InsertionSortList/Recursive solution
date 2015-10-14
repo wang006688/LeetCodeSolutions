@@ -1,0 +1,17 @@
+public ListNode insertionSortList(ListNode head) {
+    if(head==null || head.next==null) return head;
+
+    head.next = insertionSortList(head.next);
+    if(head.val<=head.next.val) return head;
+
+    ListNode next = head.next;
+    ListNode cur = head;
+    while(cur.next!=null && head.val>cur.next.val) {
+        cur = cur.next;
+    }
+    head.next = cur.next;
+    cur.next = head;
+    head = next;
+    return head;
+
+}
