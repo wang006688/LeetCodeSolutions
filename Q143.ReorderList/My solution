@@ -1,0 +1,28 @@
+public class Solution {
+    public void reorderList(ListNode head) {
+        if (head == null || head.next == null) return;
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode sHead = slow.next;
+        slow.next = null;
+        sHead = reverse(null, sHead);
+        ListNode newHead = head;
+        while (sHead != null && newHead != null) {
+            ListNode tmf = newHead.next;
+            ListNode tms = sHead.next;
+            newHead.next = sHead;
+            sHead.next = tmf;
+            sHead = tms;
+            newHead = tmf;
+        }
+    }
+    public ListNode reverse(ListNode reverse, ListNode remaining) {
+        if (remaining == null) return reverse;
+        ListNode temp = remaining.next;
+        remaining.next = reverse;
+        return reverse(remaining, temp);
+    }
+}
