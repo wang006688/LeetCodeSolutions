@@ -1,0 +1,31 @@
+public int findMin(int[] nums) {
+        int left = 0;
+        int right = nums.length - 1;
+        int mid = 0;
+
+        while(left < right) {
+
+            //the subarray [left, right] is sorted perfectly
+            if (nums[left] < nums[right]) return nums[left];
+
+            mid = (left + right)>>1;
+
+            if(nums[mid] >= nums[left]) {
+                //subarray [left, mid] is sorted
+                //but we have checked above that nums[left] is not the smallest element
+                //so continue with subarray [mid + 1, right]
+                left = mid + 1;
+            } else {
+                //subarray [mid + 1, right] is sorted
+                //so the rotation is in [left, mid]
+                right = mid;
+            }
+        }
+
+        return nums[left];
+    }
+    
+    But since the array is partially sorted, we can do binary search to find at what index the rotation started. 
+    To do this, we divide array "nums" into 2 sub-array bounded by left <= mid < right. 
+    The rotation is located in either [left, mid] or [mid+1, right] in which the array is not sorted. 
+    And then we process the sub-array that is not sorted to find rotation index. The time complexity is O(lg n)
