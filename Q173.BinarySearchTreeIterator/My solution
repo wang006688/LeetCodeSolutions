@@ -1,0 +1,33 @@
+public class BSTIterator {
+    private Stack<TreeNode> stack = new Stack<>();
+    public BSTIterator(TreeNode root) {
+        TreeNode cur = root;
+        if (root == null) return;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.left;
+        }
+    }
+
+    /** @return whether we have a next smallest number */
+    public boolean hasNext() {
+        return !stack.isEmpty();
+    }
+
+    /** @return the next smallest number */
+    public int next() {
+        if (!stack.isEmpty()) {
+            int res = stack.peek().val;
+            TreeNode cur = stack.pop();
+            if (cur.right != null) {
+                cur = cur.right;
+                while(cur != null) {
+                    stack.push(cur);
+                    cur = cur.left;
+                }
+            }
+            return res;
+        }
+        return -1;
+    }
+}
