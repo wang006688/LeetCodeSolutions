@@ -1,0 +1,62 @@
+TreeNode nodeIterator;
+public BSTIterator(TreeNode root) {
+    TreeNode node = root;
+    if (root == null) return;
+    while (node.left != null) {
+        node = node.left;
+    }
+    nodeIterator = node;
+    restructure(root);
+}
+
+/** @return whether we have a next smallest number */
+public boolean hasNext() {
+    return nodeIterator != null;
+}
+
+/** @return the next smallest number */
+public int next() {
+    int next = nodeIterator.val;
+    nodeIterator = nodeIterator.right;
+    return next;
+}
+
+private void restructure(TreeNode node) {
+    TreeNode pre = null;
+    TreeNode temp = null;
+    while(node!=null){
+        if(node.left!=null){
+            // connect threading for node
+            temp = node.left;
+            while(temp.right!=null && temp.right != node)
+                temp = temp.right;
+            // the threading already exists
+            if(temp.right != null){
+                // add right pointer from 'pre' node to current node
+                pre.right = node;
+                pre = node;
+                node = node.right;
+            }else{
+                // construct the threading
+                temp.right = node;
+                node = node.left;
+            }
+        }else{
+            // add right pointer from 'pre' node to current node
+            if (pre != null) pre.right = node;
+            pre = node;
+            node = node.right;
+        }
+    }
+}
+
+
+
+The solution I posted above is inspired by Morris Tree Traversal. In Morris Tree Traversal, 
+we create fake 'right' pointer to point to the ancestors. And set them back to null later. 
+What if we just keep those fake pointers? We get a sorted linked list! Where you call 'right' to go 'next'.
+
+However, only keeping those fake 'right' points is not enough. In the Morris Tree Traversal, 
+some times we have to go to the most left node to get the next node. How should we handle this case? 
+We just need to set the right pointer of previously node points to the current node. Done.
+
