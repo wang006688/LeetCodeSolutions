@@ -1,0 +1,35 @@
+public class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        List<List<Integer>> adList = new ArrayList<>(numCourses);
+        for (int i = 0; i < numCourses; i++) {
+            adList.add(i, new ArrayList<Integer>());
+        }
+        for (int[] prerequisite : prerequisites) {
+            adList.get(prerequisite[0]).add(prerequisite[1]);
+        }
+        boolean[] visited = new boolean[numCourses];
+        
+        for (int u = 0; u < numCourses; u++) {
+            if (hasCycle(adList, u, visited, new boolean[numCourses])) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean hasCycle(List<List<Integer>> adList, int u, boolean[] visited, boolean[] stack) {
+        if (visited[u]) {
+            return false;
+        }
+        if (stack[u]) {
+            return true;
+        }
+        stack[u] = true;
+        for (Integer v : adList.get(u)) {
+            if (hasCycle(adList, v, visited, stack)) {
+                return true;
+            }
+        }
+        visited[u] = true;
+        return false;
+    }
+}
