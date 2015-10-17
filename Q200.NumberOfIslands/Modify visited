@@ -1,0 +1,23 @@
+public class Solution {
+    public int numIslands(char[][] grid) {
+        if (grid == null || grid.length == 0) return 0;
+        int m = grid.length, n = grid[0].length;
+        int count = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    count++;
+                    canReach(i, j, grid, m, n);
+                }
+            }
+        }
+        return count;
+    }
+    public void canReach (int i, int j, char[][] visited, int m, int n) {
+        visited[i][j] = '2';
+        if (i + 1 < m && visited[i + 1][j] == '1') canReach(i + 1, j, visited, m, n);
+        if (i > 0 && visited[i - 1][j] == '1') canReach(i - 1, j, visited, m, n);
+        if (j + 1 < n && visited[i][j + 1] == '1') canReach(i, j + 1, visited, m, n);
+        if (j > 0 && visited[i][j - 1] == '1') canReach(i, j - 1, visited, m, n);
+    }
+}
