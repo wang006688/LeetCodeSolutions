@@ -1,0 +1,36 @@
+public class Solution {
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+        if (nums == null || nums.length == 0) return false;
+        valuePairs[] vp = new valuePairs[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            vp[i] = new valuePairs(nums[i], i);
+        }
+        Arrays.sort(vp);
+        for (int i = 0; i < vp.length; i++) {
+            for (int j = i + 1; j < vp.length && ((long)vp[j].val - (long)vp[i].val <= (long)t); j++) {
+                if (Math.abs(vp[j].pos - vp[i].pos) <= k) {
+                    return true;
+                }
+            } 
+        }
+        return false;
+    }
+    class valuePairs implements Comparable<valuePairs> {
+        int val;
+        int pos;
+        valuePairs(int v, int p) {
+            val = v;
+            pos = p;
+        }
+        @Override
+        public int compareTo(valuePairs vp) {
+            if (this.val < vp.val) {
+                return -1;
+            } else if (this.val > vp.val) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    }
+}
