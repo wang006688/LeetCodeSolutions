@@ -1,0 +1,43 @@
+public class WordDictionary {
+public class Node{
+    char val;
+    HashMap<Character,Node> map = new HashMap<Character,Node>();
+    boolean storeWord = false;
+    public Node(){}
+    public Node(char val){this.val = val;}
+}
+Node root = new Node();
+
+public void addWord(String word) {
+    Node node = root;
+    for(char c : word.toCharArray()){
+        if(!node.map.containsKey(c))
+            node.map.put(c,new Node(c));
+        node = node.map.get(c);
+    }
+    node.storeWord = true;
+}
+
+public boolean search(String word) {
+    Node node = root;
+    return helper(word,node);
+}
+
+public boolean helper(String word, Node node){
+    for(int i=0; i< word.length(); i++){
+        char c = word.charAt(i);
+        if(c == '.'){
+            for(char key : node.map.keySet()){
+                Node newNode = node.map.get(key);
+                if(helper(word.substring(i+1), newNode))
+                    return true;
+            }
+            return false;
+        }
+        if(!node.map.containsKey(c))
+           return false;
+        else
+            node = node.map.get(c);
+    }
+    return node.storeWord;
+}
