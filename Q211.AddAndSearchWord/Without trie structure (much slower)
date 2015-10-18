@@ -1,0 +1,38 @@
+Map<Integer, List<String>> map = new HashMap<Integer, List<String>>();
+// Adds a word into the data structure.
+public void addWord(String word) {
+    if (word != null && word.length() > 0){
+        if (map.containsKey(word.length()))
+            map.get(word.length()).add(word);
+        else{
+            List<String> list = new ArrayList<String>();
+            list.add(word);
+            map.put(word.length(), list);
+        }
+    }
+}
+
+// Returns if the word is in the data structure. A word could
+// contain the dot character '.' to represent any one letter.
+public boolean search(String word) {
+    if (map.size() < 1)    return false;
+    if (word == null || word.length() < 1)  return false;
+    boolean found = false;
+    if (map.containsKey(word.length())){
+        List<String> list = map.get(word.length());
+        for (int i = 0; i < list.size(); i++){
+            String s = list.get(i);
+            for (int j = 0; j < s.length(); j++){
+                if (word.charAt(j) == s.charAt(j) || word.charAt(j) == '.'){
+                    found = true;
+                }else{
+                    found = false;
+                    break;
+                }
+            }
+            if (found)  return true;
+        }
+    }else
+        return false;
+    return found;
+}
