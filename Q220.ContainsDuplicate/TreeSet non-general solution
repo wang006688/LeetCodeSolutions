@@ -1,0 +1,24 @@
+public class Solution {
+
+    public boolean containsNearbyAlmostDuplicate(final int[] nums, int kk, long t) {
+        if (nums.length < 2) return false;
+        if (kk == 0) return false;
+        TreeSet<Long> window = new TreeSet<Long>();
+
+        for(int i=0;i<nums.length;i++) {
+
+            // check dup, window size <= kk right now
+            if ( window.floor(nums[i] + t) !=null && window.floor(nums[i]+t) >= nums[i]-t ) return true;
+
+            window.add(new Long(nums[i]));
+
+
+            if (i >= kk) {
+                //remove one, the size has to be kk on the next fresh step
+                window.remove(new Long(nums[i-kk]));
+            }
+        }
+
+        return false;
+    }
+}
