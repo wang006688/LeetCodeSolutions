@@ -1,0 +1,56 @@
+public class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        int index = 0;
+        int[] order = new int[numCourses];
+        int[] degree = new int[numCourses];
+        Set<Integer> zeroDegree = new HashSet<>();
+
+        // initialize
+        for (int row = 0; row < prerequisites.length; row++) {
+            int[] edge = prerequisites[row];
+            degree[edge[0]]++;
+        }
+        for (int i = 0; i < degree.length; i++)
+            if (degree[i] == 0) zeroDegree.add(i);
+
+        // test if it has cycle
+        if (zeroDegree.size() == 0) return new int[]{};
+
+        // topological sort
+        while (!zeroDegree.isEmpty()) {
+            Iterator<Integer> it = zeroDegree.iterator();
+            int course = it.next();
+            zeroDegree.remove(course);
+            order[index++] = course;
+            for (int row = 0; row < prerequisites.length; row++) {
+                int[] edge = prerequisites[row];
+                if (edge[1] == course) {
+                    degree[edge[0]]--;
+                    if (degree[edge[0]] == 0) zeroDegree.add(edge[0]);
+                }
+            }
+        }
+
+        // again test if it has cycle
+        if (index != numCourses) return new int[]{};
+        return order;
+    }
+}
+
+
+A in-degree based solution.
+
+need a int array to store the in-degree for node
+need a map to store the output for node
+need a boolean array to mark whether a node is visited.
+need a int array to store the order.
+Pre-process:
+read the prerequisites array, increase the in-degree for the successor and add the successor to the output list 
+of the predecessor.
+Traverse:
+
+iterate all the node. if a node has a in-degree of zero, means it has no pred right now, add it to the order array, 
+and decrease the in-degree for all its successors
+Note: if after iterating all the nodes, we still cannot find a node with zero in-degree, that means there exists a cycle. 
+return empty array.
+repeat above step until all the node is added to the order array.
