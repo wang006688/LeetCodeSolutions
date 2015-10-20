@@ -1,0 +1,16 @@
+public class Solution {
+    public int nthUglyNumber(int n) {
+        if (n <= 0) return 0;
+        int a = 0, b = 0, c = 0;
+        List<Integer> l = new ArrayList<>();
+        l.add(1);
+        while (l.size() < n) {
+            int next = Math.min(l.get(a) * 2, Math.min(l.get(b) * 3, l.get(c) * 5));
+            l.add(next);
+            if (next == l.get(a) * 2) a++;
+            if (next == l.get(b) * 3) b++;
+            if (next == l.get(c) * 5) c++;
+        }
+        return l.get(l.size() - 1);
+    }
+}
