@@ -1,0 +1,21 @@
+public static int ans = 0;
+public int kthSmallest(TreeNode root, int k) {
+    helper(root, k);
+    return ans;
+}
+
+public int helper(TreeNode root, int k) {
+    if (root == null) {
+        return 0;
+    }
+    int leftCount = helper(root.left, k);
+    int rightCount = helper(root.right, k - leftCount - 1);
+    if (k == leftCount + 1) {
+        ans = root.val;
+    }
+    return leftCount + rightCount + 1;
+}
+
+We count the number of nodes of left sub tree and right sub tree recursively. Suppose the Kth smallest element is 
+in the right sub tree, then we need to update k as k - leftCount - 1 (leftCount + 1 is the number of nodes of left 
+sub tree plus the root node). Only when k equals leftCount + 1, we find the target.
