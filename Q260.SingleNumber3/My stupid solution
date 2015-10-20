@@ -1,0 +1,21 @@
+public class Solution {
+    public int[] singleNumber(int[] nums) {
+        if (nums.length == 2) return nums;
+        HashSet<Integer> set = new HashSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (!set.contains(nums[i])) {
+                set.add(nums[i]);
+            } else {
+                if (!set.add(nums[i])) {
+                    set.remove(nums[i]);
+                }
+            }
+        }
+        int[] res = new int[2];
+        int i = 0;
+        for (int n : set) {
+            res[i++ ] = n;
+        }
+        return res;
+    }
+}
