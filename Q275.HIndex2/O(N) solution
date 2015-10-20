@@ -1,0 +1,7 @@
+public int hIndex(int[] citations) {
+    int h = citations.length;
+    for (int c : citations)
+        if (c < h)
+            --h;
+    return h;
+}
