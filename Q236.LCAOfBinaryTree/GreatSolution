@@ -1,0 +1,16 @@
+public class Solution
+{
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
+    {
+        if(root == null)
+            return null;
+        if(root == p || root == q)
+            return root; // if find at root, no need to continue, this is before branching
+        TreeNode left = lowestCommonAncestor(root.left,p,q);
+        TreeNode right = lowestCommonAncestor(root.right,p,q);
+        if(left != null && right != null) //after branching
+            return root;
+        return left == null?right:left;//one branch null or branch not null, the brach without null automatically becomes the lca
+                                        //both null and root doesn't match, then return null
+    }
+}
