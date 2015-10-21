@@ -1,0 +1,19 @@
+public class Solution {
+    public int numSquares(int n) {
+        if (n == 0) return 0;
+        int[] dp = new int[n + 1];
+        int temp;
+        for (int i = 1; i <= n; i++) {
+            temp = (int)Math.sqrt(i);
+            int min = dp[i - 1];
+            for (int j = temp; j >= 1; j--) {
+                if (dp[i - j * j] < min) {
+                    min = dp[i - j * j];
+                }
+            }
+            dp[i] = min + 1;
+        }
+        return dp[n];
+    }
+    
+}
