@@ -1,0 +1,21 @@
+public void gameOfLife(int[][] board) {
+    if(board==null||board.length==0)    return;
+    for(int i=0; i<board.length; i++)
+        for(int j=0; j<board[0].length; j++){
+            int alive=0;
+            for(int x=-1; x<=1; x++)
+                for(int y=-1; y<=1; y++)
+                    if(!(x==0&&y==0)&&isAlive(board, i+x, j+y))
+                        alive++;
+            if((board[i][j]&1)==1&&alive>=2&&alive<=3)
+                board[i][j]|=1<<1;
+            if((board[i][j]&1)==0&&alive==3)
+                board[i][j]|=1<<1;
+        }
+    for(int i=0; i<board.length; i++)
+        for(int j=0; j<board[0].length; j++)
+            board[i][j]=board[i][j]>>1;
+}
+private boolean isAlive(int[][] board, int row, int col){
+    return row>=0&&row<board.length&&col>=0&&col<board[0].length&&(board[row][col]&1)==1;
+}
