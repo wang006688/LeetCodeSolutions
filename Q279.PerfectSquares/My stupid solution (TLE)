@@ -1,0 +1,16 @@
+public int numSquares(int n) {
+        if (n == 0) return 0;
+        int[] res = {Integer.MAX_VALUE};
+        helper(res, (int)Math.sqrt(n), n, 0);
+        return res[0];
+    }
+    public void helper (int[] res,int n, int left, int size) {
+        if (left == 0) {
+            res[0] = Math.min(size, res[0]);
+        } else if (0 > left){
+            return;
+        }
+        for (int i = n; i >= 1; i--) {
+            helper(res, i, left - i * i, size + 1);
+        }
+    }
