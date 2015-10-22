@@ -1,0 +1,22 @@
+public List<Integer> findSubstring(String s, String[] words) {
+        List<Integer> res = new ArrayList<>();
+        int size = words[0].length();
+        if (words.length == 0 || words[0].isEmpty() || words[0].length() > s.length()) 
+            return res;
+        Map<String, Integer> hist = new HashMap<>();
+        for (String w : words) {
+            hist.put(w, !hist.containsKey(w) ? 1 : hist.get(w)+1);
+        }
+        for (int i = 0; i+size*words.length <= s.length(); i++) {
+            if (hist.containsKey(s.substring(i, i+size))) {
+                Map<String, Integer> currHist = new HashMap<>();
+                for (int j = 0; j < words.length; j++) {
+                    String word = s.substring(i+j*size, i+(j+1)*size);
+                    currHist.put(word, !currHist.containsKey(word) ? 
+                            1 : currHist.get(word)+1);
+                }
+                if (currHist.equals(hist)) res.add(i);
+            }
+        }
+        return res;
+    }
