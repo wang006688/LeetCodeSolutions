@@ -1,0 +1,25 @@
+public class Solution {
+    public int trap(int[] height) {
+        if (height == null || height.length < 3) return 0;
+        int max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
+        int count = 0;
+        for (int i = 0; i < height.length; i++) {
+            if (height[i] > max) max = height[i];
+            if (height[i] < min) min = height[i];
+            if (height[i] > min) {
+                for (int j = i - 1; j >= 0; j--) {
+                    if (height[j] > min) {
+                        count += (Math.min(height[j], height[i]) - min) * (i - j - 1);
+                        min = Math.min(height[j], height[i]);
+                        if (min == height[i]) break;
+                    }
+                }
+                if (height[i] >= max) {
+                    max = height[i];
+                    min = height[i];
+                }
+            }
+        }
+        return count;
+    }
+}
