@@ -1,0 +1,16 @@
+public class Solution {
+    public int jump(int[] nums) {
+        int step = 0;
+        for (int l = 0, r = 0; r < nums.length - 1; step++) {
+            int rNew = 0;
+            for (int i = l; i <= r; i++) rNew = Math.max(rNew, i + nums[i]);
+            l += 1;
+            r = rNew;
+        }
+        return step;
+    }
+}
+
+
+For each step of jump, there is a range you can reach. Then try jumping from each position in current range, 
+you will get a new range where the next step can reach. Repeat this process util the range covers the last index.
