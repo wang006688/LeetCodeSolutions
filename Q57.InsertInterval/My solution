@@ -1,0 +1,37 @@
+public class Solution {
+    public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
+        List<Interval> res = new ArrayList<>();
+        if (intervals.isEmpty()) {
+            res.add(newInterval);
+            return res;
+        }
+        int min = newInterval.start, max = newInterval.end;
+        ListIterator<Interval> it = intervals.listIterator();
+        boolean added = false;
+        while (it.hasNext()) {
+            Interval temp = it.next();
+            if (min <= temp.end) {
+                if (max < temp.start) {
+                    if (!added) {
+                        res.add(new Interval(min, max));
+                        added = true;
+                    }
+                    res.add(temp);
+                } else {
+                    min = Math.min(min, temp.start);
+                    max = Math.max(max, temp.end);
+                    if (!it.hasNext()) {
+                        res.add(new Interval(min, max));
+                        added = true;
+                    }
+                }
+            } else {
+                res.add(temp);
+            }
+        }
+        if (!added) {
+            res.add(newInterval);
+        }
+        return res;
+    }
+}
