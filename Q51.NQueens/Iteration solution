@@ -1,0 +1,38 @@
+public List<List<String>> solveNQueens(int n) {
+        List<List<String>> res = new ArrayList<>();
+        List<String> each = new ArrayList<>();
+        int[] row = new int[n + 1];
+        int col = 1;
+        while (col > 0) {
+            row[col] += 1;
+            while (row[col] <= n && !isValid(col, row)) {
+                row[col]++;
+            }
+            if (row[col] <= n) {
+                if (col == n) {
+                    for (int i = 1; i <= n; i++) {
+                        StringBuilder sb = new StringBuilder();
+                        for (int j = 1; j <= n; j++) {
+                            if (j == row[i]) sb.append('Q');
+                            else sb.append('.');
+                        }
+                        each.add(sb.toString());
+                    }
+                    res.add(each);
+                } else {
+                    row[++col] = 0;
+                }
+            } else {
+                col--;
+            }
+        }
+        return res;
+    }
+    public boolean isValid(int col, int[] row) {
+        for (int i = 1; i < col; i++) {
+            if (Math.abs(i - col) == Math.abs(row[i] - row[col]) || row[i] == row[col]) {
+                return false;
+            }
+        }
+        return true;
+    }
