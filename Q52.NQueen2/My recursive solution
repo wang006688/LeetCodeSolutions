@@ -1,0 +1,27 @@
+public class Solution {
+    public int totalNQueens(int n) {
+        int[] res = new int[1];
+        if (n <= 0) return 0;
+        helper(res, 0, n, new int[n]);
+        return res[0];
+    }
+    public void helper(int[] res, int step, int n, int[] pos) {
+        if (step == n) {
+            res[0]++;
+            return;
+        }
+        for (int i = 0; i < n; i++) {
+            pos[step] = i;
+            if (isValid(step, pos)) {
+                helper(res, step + 1, n, pos);
+            }
+        }
+    }
+    public boolean isValid(int n, int[] pos) {
+        for (int i = 0; i < n; i++) {
+            if (pos[i] == pos[n] || Math.abs(i - n) == Math.abs(pos[i] - pos[n]))
+                return false;
+        }
+        return true;
+    }
+}
