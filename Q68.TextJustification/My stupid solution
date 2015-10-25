@@ -1,0 +1,62 @@
+public class Solution {
+    public List<String> fullJustify(String[] words, int maxWidth) {
+        List<String> res = new ArrayList<>();
+        if (words == null || words.length == 0) return res;
+        int count = 0;
+        int start = 0;
+        String each = "";
+        for (int end = 0; end < words.length; end++) {
+            start = end;
+            if (words[end].length() == maxWidth) {
+                res.add(words[end]);
+            } else {
+                while (end < words.length && count + end - start + words[end].length() <= maxWidth) {
+                    count += words[end].length();
+                    end++;
+                    System.out.println("end " + end);
+                }
+                end = end - 1;
+                int dif = maxWidth - count;
+                if (end == start) {
+                    each += words[start];
+                    while (dif-- > 0) {
+                        each += " ";
+                    }
+                    res.add(each);
+                } else {
+                   if (end == words.length - 1) {
+                       for (int i = start; i < end; i++) {
+                           each += words[i] + " ";
+                       }
+                       each += words[end];
+                       int len = maxWidth - each.length();
+                       while (len-- > 0) {
+                           each += " ";
+                       }
+                   } else {
+                       int offset = dif % (end - start);
+                       int space = dif / (end - start);
+                       for (int i = start; i < end; i++) {
+                           each += words[i];
+                           int temp = space;
+                           while (temp > 0) {
+                               each += " ";
+                               temp--;
+                           }
+                           if (offset > 0) {
+                               each = each +  " ";
+                               offset--;
+                           }
+                       }
+                       each += words[end];
+                   }
+                   
+                   res.add(each);
+                }
+                count = 0;
+                each = "";
+            }
+        }
+        return res;
+    }
+}
